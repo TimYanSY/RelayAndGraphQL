@@ -1,0 +1,3 @@
+targets:
+  insta: shared-us-west-2/cjgcpzdjf46nc0154rtlwdyb6
+  default: insta
