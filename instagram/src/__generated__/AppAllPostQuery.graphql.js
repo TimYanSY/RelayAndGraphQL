@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6e5c5575da075b2e653b1b52bbd4c868
+ * @relayHash da0ae7560c2fcfcc942cd7f3c4b3821c
  */
 
 /* eslint-disable */
@@ -28,6 +28,7 @@ query AppAllPostQuery {
 }
 
 fragment ListPage_viewer on Viewer {
+  ...Post_viewer
   allPosts(last: 100, orderBy: createdAt_DESC) {
     edges {
       node {
@@ -42,6 +43,10 @@ fragment ListPage_viewer on Viewer {
       startCursor
     }
   }
+}
+
+fragment Post_viewer on Viewer {
+  id
 }
 
 fragment Post_post on Post {
@@ -64,7 +69,7 @@ return {
   "operationKind": "query",
   "name": "AppAllPostQuery",
   "id": null,
-  "text": "query AppAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  allPosts(last: 100, orderBy: createdAt_DESC) {\n    edges {\n      node {\n        ...Post_post\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment Post_post on Post {\n  id\n  description\n  imageUrl\n}\n",
+  "text": "query AppAllPostQuery {\n  viewer {\n    ...ListPage_viewer\n    id\n  }\n}\n\nfragment ListPage_viewer on Viewer {\n  ...Post_viewer\n  allPosts(last: 100, orderBy: createdAt_DESC) {\n    edges {\n      node {\n        ...Post_post\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment Post_viewer on Viewer {\n  id\n}\n\nfragment Post_post on Post {\n  id\n  description\n  imageUrl\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -105,6 +110,7 @@ return {
         "concreteType": "Viewer",
         "plural": false,
         "selections": [
+          v0,
           {
             "kind": "LinkedField",
             "alias": null,
@@ -226,8 +232,7 @@ return {
             "handle": "connection",
             "key": "ListPage_allPosts",
             "filters": []
-          },
-          v0
+          }
         ]
       }
     ]
